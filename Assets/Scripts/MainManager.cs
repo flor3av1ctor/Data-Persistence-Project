@@ -10,9 +10,14 @@ public class MainManager : MonoBehaviour
     public int LineCount = 6;
     public Rigidbody Ball;
 
+    public static MainManager Instance;
+
     public Text ScoreText;
     public GameObject GameOverText;
-    
+
+   
+   
+
     private bool m_Started = false;
     private int m_Points;
     
@@ -40,6 +45,8 @@ public class MainManager : MonoBehaviour
 
     private void Update()
     {
+
+
         if (!m_Started)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -73,4 +80,20 @@ public class MainManager : MonoBehaviour
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
+
+    private void Awake()
+    {
+        // start of new code
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        // end of new code
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    
 }
